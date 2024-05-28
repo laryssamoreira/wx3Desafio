@@ -6,21 +6,20 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    
     public function up(): void
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('shippings', function (Blueprint $table) {
             $table->id();
-            $table->string('identification_code')->unique();
-            $table->string('name');
-            $table->text('description');
+            $table->decimal('value', 10, 2);
+            $table->float('distance');
+            $table->float('weight');
             $table->timestamps();
         });
     }
 
-    
     public function down(): void
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('shippings');
     }
 };
+
