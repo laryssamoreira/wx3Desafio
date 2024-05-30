@@ -11,8 +11,8 @@ return new class extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
-            $table->decimal('total_price', 10, 2);
-            $table->decimal('discounts', 10, 2);
+            $table->decimal('total_price', 10, 2)->nullable();;
+            $table->decimal('discounts', 10, 2)->nullable();;
             $table->foreignId('address_id')->constrained('addresses');
             $table->foreignId('client_id')->constrained('clients');
             $table->foreignId('shipping_id')->constrained('shippings');

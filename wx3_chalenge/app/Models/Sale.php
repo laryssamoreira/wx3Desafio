@@ -36,8 +36,8 @@ class Sale extends Model
     public static function validate($sale)
     {
         $validator = Validator::make($sale->attributesToArray(), [
-            'total_price' => 'required|numeric|min:0',
-            'discounts' => 'required|numeric|min:0',
+            'total_price' => 'nullable|numeric|min:0',
+            'discounts' => 'nullable|numeric|min:0',
             'address_id' => 'required|exists:addresses,id',
             'client_id' => 'required|exists:clients,id',
             'shipping_id' => 'required|exists:shippings,id',
