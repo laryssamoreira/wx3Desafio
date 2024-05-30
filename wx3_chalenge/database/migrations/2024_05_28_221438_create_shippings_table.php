@@ -11,8 +11,8 @@ return new class extends Migration
         Schema::create('shippings', function (Blueprint $table) {
             $table->id();
             $table->decimal('value', 10, 2);
-            $table->float('distance');
-            $table->float('weight');
+            $table->float('distance')->nullable();
+            $table->float('weight')->nullable();
             $table->timestamps();
         });
     }

@@ -30,8 +30,8 @@ class Shipping extends Model
     {
         $validator = Validator::make($shipping->attributesToArray(), [
             'value' => 'required|numeric|min:0',
-            'distance' => 'required|numeric|min:0',
-            'weight' => 'required|numeric|min:0',
+            'distance' => 'nullable|numeric|min:0',
+            'weight' => 'nullable|numeric|min:0',
         ]);
 
         if ($validator->fails()) {

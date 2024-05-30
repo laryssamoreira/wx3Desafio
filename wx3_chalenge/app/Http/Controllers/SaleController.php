@@ -6,13 +6,22 @@ use App\Models\Sale;
 use App\Models\Stock;
 use App\Models\PaymentMethod;
 use App\Models\Shipping;
+use App\Models\Item;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class SaleController extends Controller
 {
     public function index()
     {
-        return Sale::all();
+        $sales = Sale::all();
+
+        if ($sales->isEmpty()) {
+            return response()->json(['message' => 'Não há objetos encontrados'], 200);
+        }
+
+        return response()->json($sales, 200);
     }
 
     public function store(Request $request)
@@ -49,14 +58,19 @@ class SaleController extends Controller
         $shipping = Shipping::findOrFail($request->shipping_id);
         $totalPrice += $shipping->value;
 
-        $sale = Sale::create([
-            'total_price' => $totalPrice,
-            'discounts' => $discount,
-            'address_id' => $request->address_id,
-            'client_id' => $request->client_id,
-            'shipping_id' => $request->shipping_id,
-            'payment_method_id' => $request->payment_method_id,
-        ]);
+        try {
+            $sale = Sale::create([
+                'total_price' => $totalPrice,
+                'discounts' => $discount,
+                'address_id' => $request->address_id,
+                'client_id' => $request->client_id,
+                'shipping_id' => $request->shipping_id,
+                'payment_method_id' => $request->payment_method_id,
+            ]);
+        } catch (\Exception $e) {
+            $sale->delete();
+            return response()->json(['message' => 'Erro ao gerar venda: ' . $e->getMessage()], 500);
+        }
 
         try {
             foreach ($request->items as $itemData) {
@@ -86,26 +100,36 @@ class SaleController extends Controller
         return $sale;
     }
 
-    public function show(Sale $sale)
+    public function show($id)
     {
-        return $sale;
+        try {
+            $sale = Sale::findOrFail($id);
+            
+            $items = Item::where('sale_id', $sale->id)->get();
+
+            $sale->items = $items;
+
+            return response()->json($sale, 200);
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['message' => 'Venda não encontrada.'], 404);
+        }
     }
 
-    public function update(Request $request, Sale $sale)
-    {
-        $request->validate([
-            'total_price' => 'required|numeric',
-            'discount' => 'required|numeric',
-            'address_id' => 'required|exists:addresses,id',
-            'client_id' => 'required|exists:clients,id',
-            'shipping_id' => 'required|exists:shippings,id',
-            'payment_method_id' => 'required|exists:payment_methods,id',
-        ]);
+    // public function update(Request $request, Sale $sale)
+    // {
+    //     $request->validate([
+    //         'total_price' => 'required|numeric',
+    //         'discount' => 'required|numeric',
+    //         'address_id' => 'required|exists:addresses,id',
+    //         'client_id' => 'required|exists:clients,id',
+    //         'shipping_id' => 'required|exists:shippings,id',
+    //         'payment_method_id' => 'required|exists:payment_methods,id',
+    //     ]);
 
-        $sale->update($request->all());
+    //     $sale->update($request->all());
 
-        return $sale;
-    }
+    //     return $sale;
+    // }
 
     public function destroy(Sale $sale)
     {
