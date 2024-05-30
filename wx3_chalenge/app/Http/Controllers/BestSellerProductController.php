@@ -12,12 +12,22 @@ class BestSellerProductController extends Controller
         // Cálculo da quantidade total de cada produto
         $productQuantities = Item::groupBy('product_id')
             ->selectRaw('product_id, SUM(quantity) as total_quantity')
-            ->get();
+            ->orderBy('total_quantity', 'desc')
+            ->first();
 
-        // Procura do produto mais vendido
-        $maxProduct = $productQuantities->max('total_quantity');
-        $productName = Item::where('product_id', $maxProduct->product_id)->first()->product->name;
+        // Verificação
+        if (!$productQuantities) {
+            return response()->json(['message' => 'Produtos não encontrados'], 404);
+        }
 
-        return response()->json(['product_name' => $productName, 'total_quantity' => $maxProduct->total_quantity]);
+        // Nome do produto mais vendido
+        $product = Item::where('product_id', $productQuantities->product_id)
+            ->first()
+            ->product;
+
+        return response()->json([
+            'product_name' => $product->name,
+            'total_quantity' => $productQuantities->total_quantity
+        ]);
     }
 }

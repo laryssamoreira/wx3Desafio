@@ -24,18 +24,17 @@ class SaleController extends Controller
             'payment_method_id' => 'required|exists:payment_methods,id',
             'items.*.quantity' => 'required|integer|min:1',
             'items.*.selling_price' => 'required|numeric|min:0',
+            'items.*.size' => 'required|string|max:255',
             'items.*.product_id' => 'required|exists:products,id',
         ]);
 
-        // Verificação e atualização de estoque
+        // Verificação de estoque
         foreach ($request->items as $item) {
-            $stock = Stock::where('product_id', $item['product_id'])->first();
+            $stock = Stock::where('product_id', $item['product_id'])-> where('size', $item['size']) ->first();
             
             if (!$stock || $stock->quantity < $item['quantity']) {
                 return response()->json(['message' => 'Quantidade insuficiente em estoque para o produto com ID ' . $item['product_id']], 400);
             }
-
-            $stock->decrement('quantity', $item['quantity']);
         }
 
         // Obtenção do valor de desconto relacionado a forma de pagamento
@@ -59,14 +58,30 @@ class SaleController extends Controller
             'payment_method_id' => $request->payment_method_id,
         ]);
 
-        foreach ($request->items as $itemData) {
-            $sale->items()->create([
-                'quantity' => $itemData['quantity'],
-                'sale_price' => $itemData['selling_price'],
-                'size' => $itemData['size'],
-                'product_id' => $itemData['product_id'],
-            ]);
+        try {
+            foreach ($request->items as $itemData) {
+                $sale->items()->create([
+                    'quantity' => $itemData['quantity'],
+                    'selling_price' => $itemData['selling_price'],
+                    'size' => $itemData['size'],
+                    'product_id' => $itemData['product_id'],
+                    'sale_id' => $sale->id,
+                ]);
+            }
+        } catch (\Exception $e) {
+            $sale->delete();
+            return response()->json(['message' => 'Erro ao criar itens: ' . $e->getMessage()], 500);
         }
+
+        // Atualização de estoque
+        foreach ($request->items as $item) {
+            $stock = Stock::where('product_id', $item['product_id'])-> where('size', $item['size']) ->first();
+            
+            if (!$stock || $stock->quantity >= $item['quantity']) {
+                $stock->decrement('quantity', $item['quantity']);
+            }
+        }
+    
     
         return $sale;
     }
