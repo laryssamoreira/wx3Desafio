@@ -52,7 +52,7 @@ class StockController extends Controller
             $request->validate([
                 'size' => 'required|string|max:255',
                 'quantity' => 'required|integer|min:0',
-                'product_id' => 'required|exists:products,id',
+                //'product_id' => 'required|exists:products,id',
             ]);
 
             $stock->update($request->all());

@@ -52,10 +52,10 @@ class ClientController extends Controller
         try{
             $request->validate([
                 'name' => 'required|string|max:255',
-                'cpf' => ['required', 'string', 'size:11', 'unique:clients,cpf', new ValidCpf],
                 'birthdate' => 'required|date',
             ]);
 
+            $data = $request->except(['cpf']);
             $client->update($request->all());
         } catch (ValidationException $e) {
             return response()->json(['message' => 'Erro ao atualizar cliente: ' . $e->getMessage()], 500);

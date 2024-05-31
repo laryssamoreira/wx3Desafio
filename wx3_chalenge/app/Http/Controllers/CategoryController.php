@@ -24,7 +24,7 @@ class CategoryController extends Controller
     {
         try {
             $request->validate([
-                'identification_code' => 'required|string|max:255|unique:categories',
+                //'identification_code' => 'required|string|max:255|unique:categories',
                 'name' => 'required|string|max:255|unique:categories,name',
                 'description' => 'required|string',
             ]);
@@ -50,7 +50,7 @@ class CategoryController extends Controller
     {
         try{
             $request->validate([
-                'name' => 'required|string|max:255|unique:categories,name,' . $category->id,
+                //'name' => 'required|string|max:255|unique:categories,name,' . $category->id,
                 'identification_code' => 'required|string|max:255|unique:categories',
                 'description' => 'required|string',
             ]);

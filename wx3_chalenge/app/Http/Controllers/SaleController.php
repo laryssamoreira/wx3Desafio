@@ -38,12 +38,17 @@ class SaleController extends Controller
         ]);
 
         // Verificação de estoque
-        foreach ($request->items as $item) {
-            $stock = Stock::where('product_id', $item['product_id'])-> where('size', $item['size']) ->first();
-            
-            if (!$stock || $stock->quantity < $item['quantity']) {
-                return response()->json(['message' => 'Quantidade insuficiente em estoque para o produto com ID ' . $item['product_id']], 400);
+        try{
+            foreach ($request->items as $item) {
+                $stock = Stock::where('product_id', $item['product_id'])-> where('size', $item['size']) ->first();
+                
+                if (!$stock || $stock->quantity < $item['quantity']) {
+                    return response()->json(['message' => 'Quantidade insuficiente em estoque para o produto com ID ' . $item['product_id']], 400);
+                }
             }
+        } catch (\Exception $e) {
+            $sale->delete();
+            return response()->json(['message' => 'Erro ao gerar venda: ' . $e->getMessage()], 500);
         }
 
         // Obtenção do valor de desconto relacionado a forma de pagamento
@@ -57,6 +62,7 @@ class SaleController extends Controller
         }
         $shipping = Shipping::findOrFail($request->shipping_id);
         $totalPrice += $shipping->value;
+        $totalPrice -= $totalPrice * $discount;
 
         try {
             $sale = Sale::create([

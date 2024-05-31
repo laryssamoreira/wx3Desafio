@@ -45,21 +45,21 @@ class PaymentMethodController extends Controller
         }
     }
 
-    public function update(Request $request, PaymentMethod $paymentMethod)
-    {
-        try{
-            $request->validate([
-                'name' => 'required|string|max:255',
-                'discount' => 'required|numeric|min:0',
-            ]);
+    // public function update(Request $request, PaymentMethod $paymentMethod)
+    // {
+    //     try{
+    //         $request->validate([
+    //             'name' => 'required|string|max:255',
+    //             'discount' => 'required|numeric|min:0',
+    //         ]);
 
-            $paymentMethod->update($request->all());
-        } catch (ValidationException $e) {
-            return response()->json(['message' => 'Erro ao atualizar método de pagamento: ' . $e->getMessage()], 500);
-        }
+    //         $paymentMethod->update($request->all());
+    //     } catch (ValidationException $e) {
+    //         return response()->json(['message' => 'Erro ao atualizar método de pagamento: ' . $e->getMessage()], 500);
+    //     }
 
-        return $paymentMethod;
-    }
+    //     return $paymentMethod;
+    // }
 
     public function destroy(PaymentMethod $paymentMethod)
     {

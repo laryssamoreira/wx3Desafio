@@ -1,0 +1,821 @@
+{
+	"info": {
+		"_postman_id": "46fe1a02-525b-4a3c-85c8-771a2d26b520",
+		"name": "Desafio Wx3",
+		"description": "Projeto feito para teste de habilidades necessárias para vaga na empresa Wx3.\n\nA estruturação do projeto foi feita de tal forma que, para futuras melhorias, fosse possível selecionar o frete desejado e fosse possível adicionar novas formas de pagamento.  \nOptou-se pelo cliente fazer o cadastro e preencher o endereço de entrega em requisições separadas da venda para que, futuramente, fosse possível selecioná-los ou colocá-los em telas diferentes visando a organização da interface.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30442632"
+	},
+	"item": [
+		{
+			"name": "Categories",
+			"item": [
+				{
+					"name": "Categories",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Categoria Teste\",\r\n    \"description\": \"Categoria Teste\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}categories",
+							"host": [
+								"{{url}}categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Categories",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Categoria\",\r\n    \"description\": \"Categoria Teste\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}categories/1",
+							"host": [
+								"{{url}}categories"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Categories",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{url}}categories/1",
+							"host": [
+								"{{url}}categories"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Categories",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"identification_code\": \"CAT1\",\r\n    \"name\": \"Categoria Teste\",\r\n    \"description\": \"Categoria Teste\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}categories/2",
+							"host": [
+								"{{url}}categories"
+							],
+							"path": [
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "CRUD destinado a categorias de produtos"
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "Products",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"identification_code\": \"PROD222\",\r\n    \"name\": \"Camiseta\",\r\n    \"color\": \"Azul\",\r\n    \"image\": \"https://example.com/image.jpg\",\r\n    \"price\": 10,\r\n    \"description\": \"Camiseta de algodão\",\r\n    \"register_date\": \"2024-05-30\",\r\n    \"weight\": 0.3,\r\n    \"category_id\": 1\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}products",
+							"host": [
+								"{{url}}products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Products",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"identification_code\": \"PROD111\",\r\n    \"name\": \"Calça\",\r\n    \"color\": \"Azul\",\r\n    \"image\": \"https://example.com/image.jpg\",\r\n    \"price\": 10,\r\n    \"description\": \"Calça de algodão\",\r\n    \"register_date\": \"2024-05-30\",\r\n    \"weight\": 0.3,\r\n    \"category_id\": 1\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}products/1",
+							"host": [
+								"{{url}}products"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Products",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{url}}products",
+							"host": [
+								"{{url}}products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Products",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{url}}products/2",
+							"host": [
+								"{{url}}products"
+							],
+							"path": [
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "CRUD destinado a produtos do sistema"
+		},
+		{
+			"name": "Stock",
+			"item": [
+				{
+					"name": "Stock",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"size\": \"G\" ,\r\n    \"quantity\": 1000,\r\n    \"product_id\":1 \r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}stocks",
+							"host": [
+								"{{url}}stocks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Stock Update",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"size\": \"M\" ,\r\n    \"quantity\": 15\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}stocks/1",
+							"host": [
+								"{{url}}stocks"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Stock",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{url}}stocks",
+							"host": [
+								"{{url}}stocks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Stock",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{url}}stocks",
+							"host": [
+								"{{url}}stocks"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "CRUD destinado a administração de estoque"
+		},
+		{
+			"name": "Addresses",
+			"item": [
+				{
+					"name": "Address",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"identification_code\": \"Minha casa\",\r\n    \"street\": \"Rua linda\",\r\n    \"city\": \"Cidadezinha\",\r\n    \"neighborhood\": \"Bairro Grande\",\r\n    \"number\": \"123\",\r\n    \"zipcode\": \"28620000\",\r\n    \"complement\": \"Rua da árvore\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}addresses",
+							"host": [
+								"{{url}}addresses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Address",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"identification_code\": \"ABC111\",\r\n    \"street\": \"Rua linda\",\r\n    \"city\": \"Cidadezinha\",\r\n    \"neighborhood\": \"Bairro Grande\",\r\n    \"number\": \"123\",\r\n    \"zipcode\": \"28620000\",\r\n    \"complement\": \"Rua da árvore\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}addresses/1",
+							"host": [
+								"{{url}}addresses"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Address",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{url}}addresses",
+							"host": [
+								"{{url}}addresses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Address",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{url}}addresses/2",
+							"host": [
+								"{{url}}addresses"
+							],
+							"path": [
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "CRUD destinado a endereços de entrega"
+		},
+		{
+			"name": "Clients",
+			"item": [
+				{
+					"name": "Client",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cpf\": \"17879578706\",\r\n    \"name\": \"Joãos\",\r\n    \"birthdate\": \"1999-12-12\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}clients",
+							"host": [
+								"{{url}}clients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Client",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Eu\",\r\n    \"birthdate\": \"1999-12-12\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}clients/1",
+							"host": [
+								"{{url}}clients"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Client",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{url}}clients/1",
+							"host": [
+								"{{url}}clients"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Client",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{url}}clients/1",
+							"host": [
+								"{{url}}clients"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "CRUD destinado a clientes"
+		},
+		{
+			"name": "Payment Method",
+			"item": [
+				{
+					"name": "Payment Method",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Pix\",\r\n    \"discount\": 0.1\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}payment-methods",
+							"host": [
+								"{{url}}payment-methods"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Payment Method",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{url}}payment-methods",
+							"host": [
+								"{{url}}payment-methods"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Payment Method",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{url}}payment-methods/1",
+							"host": [
+								"{{url}}payment-methods"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "CRUD destinado a métodos de pagamentos"
+		},
+		{
+			"name": "Shipping",
+			"item": [
+				{
+					"name": "Shipping",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"value\": 5.00,\r\n    \"distance\": 10,\r\n    \"weight\": 0\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}shippings",
+							"host": [
+								"{{url}}shippings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Shipping",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"value\": 10.00,\r\n    \"distance\": 0,\r\n    \"weight\": 0\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}shippings/2",
+							"host": [
+								"{{url}}shippings"
+							],
+							"path": [
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Shipping",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{url}}shippings/2",
+							"host": [
+								"{{url}}shippings"
+							],
+							"path": [
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Shipping",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{url}}shippings/2",
+							"host": [
+								"{{url}}shippings"
+							],
+							"path": [
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "CRUD destinado a frete"
+		},
+		{
+			"name": "Sale",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"address_id\": 1,\r\n    \"client_id\": 1,\r\n    \"shipping_id\": 1,\r\n    \"payment_method_id\": 1,\r\n    \"items\": [{\r\n        \"quantity\": 1,\r\n        \"selling_price\": 10,\r\n        \"product_id\": 1,\r\n        \"size\": \"G\"\r\n    }]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}sales",
+					"host": [
+						"{{url}}sales"
+					]
+				},
+				"description": "Requisição para criação de vendas, com atualização de estoque simultâneo"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Sale",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"address_id\": 1,\r\n    \"client_id\": 1,\r\n    \"shipping_id\": 1,\r\n    \"payment_method_id\": 1,\r\n    \"items\": [{\r\n        \"quantity\": 1,\r\n        \"selling_price\": 12.20,\r\n        \"product_id\": 2,\r\n        \"size\": \"M\"\r\n    }]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}sales/1",
+					"host": [
+						"{{url}}sales"
+					],
+					"path": [
+						"1"
+					]
+				},
+				"description": "Requisição de histórico de vendas"
+			},
+			"response": []
+		},
+		{
+			"name": "Best Seller",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{url}}best-seller",
+					"host": [
+						"{{url}}best-seller"
+					]
+				},
+				"description": "Requisição para mostrar produto mais vendido"
+			},
+			"response": []
+		}
+	]
+}
